@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { Advertise } from "schoolmate-types";
 import AdvertisementSlider from "./AdvertisementSlider";
 import { classNames } from "@/lib/uitls";
+import AdvertisementKakao from "@/app/_component/Advisement";
 
 interface Props {
   data: Promise<
@@ -16,7 +17,11 @@ const Advertisement = async ({ data }: Props) => {
 
   return (
     <>
-      <AdvertisementSlider advertisement={advertisement} />
+      {advertisement.length === 0 ? (
+        <AdvertisementKakao />
+      ) : (
+        <AdvertisementSlider advertisement={advertisement} />
+      )}
     </>
   );
 };

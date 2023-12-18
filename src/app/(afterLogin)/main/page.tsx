@@ -10,6 +10,7 @@ import AdvertisementAds from "@/app/_component/Advisement";
 import Advertisement from "./_component/Advertisement";
 import RecommentArticle from "./_component/RecommnedArticle";
 import Asked from "./_component/Asked";
+import HeaderBadage from "./_component/HeaderBadage";
 
 const getAuth = cache(async () => {
   const auth = await getServerSession(authOptions);
@@ -51,7 +52,6 @@ const Main: NextPage = async () => {
         //   />
         // }
       >
-        <Advertisement />
         <SectionContainer
           title="인기 게시물"
           subTitle="즐겨찾는 게시판"

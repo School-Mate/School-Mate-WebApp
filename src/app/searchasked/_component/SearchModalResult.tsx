@@ -16,9 +16,6 @@ const SearchModalResult = ({
   keyword: string | undefined;
   auth: Session;
 }) => {
-  fetcher.defaults.headers[
-    "Authorization"
-  ] = `Bearer ${auth?.user.token.accessToken}`;
   const router = useRouter();
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useSWR<{

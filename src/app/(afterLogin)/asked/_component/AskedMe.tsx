@@ -81,7 +81,7 @@ const AskedMe = () => {
             <AskedMore userId={askedme.user.customId} />
           </div>
         </div>
-        <AskedList />
+        <AskedList askedId={askedme.user.customId} />
       </div>
     </>
   );

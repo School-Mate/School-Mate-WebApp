@@ -20,8 +20,9 @@ import { stackRouterPush } from "@/lib/stackRouter";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { PaginationParams } from "@/types/fetcher";
 import Advertisement from "@/app/_component/Advisement";
+import CopyToClipboard from "react-copy-to-clipboard";
 
-const AskedList = () => {
+const AskedList = ({ askedId }: { askedId: string }) => {
   const askedFetch = (params: PaginationParams) =>
     fetcher.get(`/auth/me/asked`, {
       params,
@@ -39,21 +40,58 @@ const AskedList = () => {
 
   return (
     <>
-      {askeds
-        .sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        )
-        .map((asked, index) => (
-          <>
-            <AskedCard asked={asked} key={index} />
-            {index == 5 && (
-              <div className="w-full border-b">
-                <Advertisement unit="DAN-ks59KP1dNxSw0XX1" />
-              </div>
+      {askeds.length === 0 ? (
+        <CopyToClipboard
+          text={`https://schoolmate.kr/asked/${askedId}`}
+          onCopy={() => {
+            toast("success", "에스크 링크가 복사되었습니다!");
+          }}
+        >
+          <div
+            className={classNames(
+              "flex flex-col h-[70vh] items-center justify-center",
+              inter.className
             )}
-          </>
-        ))}
+          >
+            <Image
+              src="/images/schoolmate/logo.svg"
+              alt="message"
+              width={150}
+              height={150}
+            />
+            <span className="font-bold mt-7">아직 받은 에스크가 없군요!</span>
+            <button className="mt-5 font-bold flex flex-row items-center bg-[#f0f0f0] px-5 py-2 rounded-full">
+              프로필 공유하기
+              <Image
+                src="/icons/Share.svg"
+                width={15}
+                height={15}
+                className="ml-2"
+                alt="share"
+              />
+            </button>
+          </div>
+        </CopyToClipboard>
+      ) : (
+        <>
+          {askeds
+            .sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
+            )
+            .map((asked, index) => (
+              <>
+                <AskedCard asked={asked} key={index} />
+                {index == 5 && (
+                  <div className="w-full border-b">
+                    <Advertisement unit="DAN-ks59KP1dNxSw0XX1" />
+                  </div>
+                )}
+              </>
+            ))}
+        </>
+      )}
 
       {isFetching && (
         <div className="flex justify-center items-center my-10 pb-10">

@@ -35,4 +35,5 @@ export type AskedDetailWithUser = Asked & {
   };
   askedUserId?: string;
   isMyAsked: boolean;
+  isOtherSchool: boolean;
 };

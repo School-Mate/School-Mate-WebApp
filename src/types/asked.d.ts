@@ -1,4 +1,4 @@
-import { Asked, AskedUser } from "schoolmate-types";
+import { Asked, AskedUser, School, UserSchool } from "schoolmate-types";
 
 export type AskedWithUser = AskedUser & {
   user: {
@@ -17,6 +17,9 @@ export type AskedUserDetail = {
   user: {
     name: string;
     profile: string;
+    userSchool: UserSchool & {
+      school: School;
+    };
   };
   tags: string[];
   statusMessage?: string;

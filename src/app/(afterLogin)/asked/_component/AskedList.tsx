@@ -21,6 +21,7 @@ import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { PaginationParams } from "@/types/fetcher";
 import Advertisement from "@/app/_component/Advisement";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { AnimatePresence, motion } from "framer-motion";
 
 const AskedList = ({ askedId }: { askedId: string }) => {
   const askedFetch = (params: PaginationParams) =>
@@ -190,6 +191,11 @@ const AskedCard = ({ asked: defaultAsked }: { asked: AskedDetailWithUser }) => {
                 "text-[0.7rem] font-bold text-[#b6b6b6] ml-auto"
               )}
             >
+              {asked.isOtherSchool && (
+                <span className="text-[#b6b6b6] text-[0.7rem] w-fit border rounded-full px-2 mr-2">
+                  다른학교
+                </span>
+              )}
               {timeForToday(asked.createdAt)}
             </span>
           </div>
@@ -226,27 +232,55 @@ const AskedDeny = ({
         height={4}
         className="mx-auto"
       />
-      {modal && (
-        <div
-          className={classNames(
-            "absolute -bottom-10 right-0 bg-white border border-[#ff5353] rounded-lg ",
-            asked.process !== "pending" ? "border-[#b6b6b6]" : ""
-          )}
-        >
-          <div className="flex flex-col">
-            <button
-              disabled={asked.process !== "pending"}
-              onClick={() => {
-                setModal(false);
-                callbackDeny();
-              }}
-              className="flex flex-row items-center px-3 justify-center text-[#ff5353] w-20 h-8 disabled:text-[#b6b6b6]"
-            >
-              거절하기
-            </button>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {modal && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.75,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              transition: {
+                ease: "easeOut",
+                duration: 0.15,
+              },
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.75,
+              transition: {
+                ease: "easeIn",
+                duration: 0.15,
+              },
+            }}
+            className="absolute right-0 bg-white border rounded-lg"
+          >
+            {modal && (
+              <div
+                className={classNames(
+                  "absolute right-0 bg-white border border-[#ff5353] rounded-lg ",
+                  asked.process !== "pending" ? "border-[#b6b6b6]" : ""
+                )}
+              >
+                <div className="flex flex-col">
+                  <button
+                    disabled={asked.process !== "pending"}
+                    onClick={() => {
+                      setModal(false);
+                      callbackDeny();
+                    }}
+                    className="flex flex-row items-center px-3 justify-center text-[#ff5353] w-20 h-8 disabled:text-[#b6b6b6]"
+                  >
+                    거절하기
+                  </button>
+                </div>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </button>
   );
 };

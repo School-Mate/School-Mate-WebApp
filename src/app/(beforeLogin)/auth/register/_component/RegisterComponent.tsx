@@ -119,7 +119,6 @@ const RegisterComponent = () => {
             <div className="flex flex-row h-[50px] w-full items-center mt-1">
               <Input
                 placeholder="휴대폰 번호"
-                inputMode="numeric"
                 className="w-full py-3.5 h-full"
                 value={phone}
                 disabled={phoneVerifyed}
@@ -331,7 +330,7 @@ const RegisterComponent = () => {
               className="absolute left-1 top-3"
             />
             <Input
-              inputMode="numeric"
+              type="number"
               placeholder="인증번호 입력"
               className="w-full bg-white border-b-2 pr-2 pl-9 rounded-none py-3"
               onChange={e => {

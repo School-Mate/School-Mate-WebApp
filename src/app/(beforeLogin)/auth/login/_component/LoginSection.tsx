@@ -67,7 +67,7 @@ const LoginSection = () => {
       >
         <div className="space-y-14 flex flex-col">
           <input
-            type="text"
+            inputMode="numeric"
             placeholder="휴대폰 번호"
             className={classNames(
               "border-b rounded-none pb-2 w-full px-1 hover:border-primary-500 focus:border-primary-500 ring-0 outline-none",
